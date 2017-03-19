@@ -34,7 +34,7 @@ var defaults = {
   awsIniFileName: null,
   transform: null,
   httpAuthFile: null,
-  total: null
+  total: 0
 }
 
 var options = {}

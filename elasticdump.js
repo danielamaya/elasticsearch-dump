@@ -110,6 +110,7 @@ elasticdump.prototype.dump = function (callback, continuing, limit, offset, tota
     if (!offset) { offset = self.options.offset }
     if (!total) { total = self.options.total }
     if (!totalWrites) { totalWrites = 0 }
+    console.log("TOTAL " + total)
 
     if (continuing !== true) {
       self.log('starting dump')
@@ -132,7 +133,7 @@ elasticdump.prototype.dump = function (callback, continuing, limit, offset, tota
             self.modifier(data[i])
           }
         }
-        self.output.set(data, limit, offset, function (err, writes) {
+        self.output.set(data, limit, offset, total, function (err, writes) {
           var toContinue = true
 
           if (err) {
