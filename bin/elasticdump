@@ -33,7 +33,8 @@ var defaults = {
   awsIniFileProfile: null,
   awsIniFileName: null,
   transform: null,
-  httpAuthFile: null
+  httpAuthFile: null,
+  total: null
 }
 
 var options = {}

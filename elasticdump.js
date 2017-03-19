@@ -99,7 +99,7 @@ elasticdump.prototype.validateOptions = function () {
   return validationErrors
 }
 
-elasticdump.prototype.dump = function (callback, continuing, limit, offset, totalWrites) {
+elasticdump.prototype.dump = function (callback, continuing, limit, offset, total, totalWrites) {
   var self = this
 
   if (self.validationErrors.length > 0) {
@@ -108,6 +108,7 @@ elasticdump.prototype.dump = function (callback, continuing, limit, offset, tota
   } else {
     if (!limit) { limit = self.options.limit }
     if (!offset) { offset = self.options.offset }
+    if (!total) { total = self.options.total }
     if (!totalWrites) { totalWrites = 0 }
 
     if (continuing !== true) {
@@ -122,7 +123,7 @@ elasticdump.prototype.dump = function (callback, continuing, limit, offset, tota
       }
     }
 
-    self.input.get(limit, offset, function (err, data) {
+    self.input.get(limit, offset, total, function (err, data) {
       if (err) { self.emit('error', err) }
       if (!err || (self.options['ignore-errors'] === true || self.options['ignore-errors'] === 'true')) {
         self.log('got ' + data.length + ' objects from source ' + self.inputType + ' (offset: ' + offset + ')')
@@ -150,7 +151,7 @@ elasticdump.prototype.dump = function (callback, continuing, limit, offset, tota
           }
 
           if (data.length > 0 && toContinue) {
-            self.dump(callback, true, limit, offset, totalWrites)
+            self.dump(callback, true, limit, offset, total, totalWrites)
           } else if (toContinue) {
             self.log('Total Writes: ' + totalWrites)
             self.log('dump complete')
