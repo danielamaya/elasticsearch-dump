@@ -110,7 +110,6 @@ elasticdump.prototype.dump = function (callback, continuing, limit, offset, tota
     if (!offset) { offset = self.options.offset }
     if (!total) { total = self.options.total }
     if (!totalWrites) { totalWrites = 0 }
-    console.log("TOTAL " + total)
 
     if (continuing !== true) {
       self.log('starting dump')
